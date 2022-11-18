@@ -36,6 +36,9 @@
     <ClCompile Include="colorshaderclass.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="cameraclass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="systemclass.h">
@@ -56,6 +59,12 @@
     <ClInclude Include="colorshaderclass.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="cameraclass.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="textureclass.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="color.vs">
@@ -64,10 +73,11 @@
     <None Include="color.ps">
       <Filter>소스 파일</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="color.vs.hlsl">
+    <None Include="texture.vs">
       <Filter>소스 파일</Filter>
-    </FxCompile>
+    </None>
+    <None Include="texture.ps">
+      <Filter>소스 파일</Filter>
+    </None>
   </ItemGroup>
 </Project>
