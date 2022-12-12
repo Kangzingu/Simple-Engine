@@ -7,7 +7,7 @@ class LightClass
 {
 public:
 	LightClass();
-	LightCLass(const LightClass&);
+	LightClass(const LightClass&);
 	~LightClass();
 
 	void SetDiffuseColor(float, float, float, float);

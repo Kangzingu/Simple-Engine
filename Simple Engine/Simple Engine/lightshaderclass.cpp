@@ -90,6 +90,21 @@ bool LightShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* 
 		return false;
 	}
 
+	result = D3DX11CompileFromFile(psFilename, NULL, NULL, "LightPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, NULL, &pixelShaderBuffer, &errorMessage, NULL);
+	if (FAILED(result))
+	{
+		if (errorMessage)
+		{
+			OutputShaderErrorMessage(errorMessage, hwnd, psFilename);
+		}
+		else
+		{
+			MessageBox(hwnd, psFilename, L"Missing Shader File", MB_OK);
+		}
+
+		return false;
+	}
+
 	result = device->CreateVertexShader(vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), NULL, &m_vertexShader);
 	if (FAILED(result))
 	{
