@@ -24,7 +24,6 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	bool result;
 
 	m_D3D = new D3DClass;
-
 	if (!m_D3D)
 	{
 		return false;
@@ -52,7 +51,8 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	wchar_t textureFilename[128] = L"../Resources/Textures/SampleDDSFile.dds";
-	result = m_Model->Initialize(m_D3D->GetDevice(), textureFilename);
+	char modelFilename[128] = "../Resources/Models/Cube.txt";
+	result = m_Model->Initialize(m_D3D->GetDevice(), modelFilename, textureFilename);
 	if (!result)
 	{
 		MessageBox(hwnd, L"Could not initialize the model object.", L"Error", MB_OK);
@@ -78,8 +78,8 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 		return false;
 	}
 
-	m_Light->SetDiffuseColor(0.0f, 1.0f, 0.0f, 1.0f);
-	m_Light->SetDirection(-1.0f, -1.0f, -1.0f);
+	m_Light->SetDiffuseColor(1.0f, 1.0f, 1.0f, 1.0f);
+	m_Light->SetDirection(0.0f, 0.0f, 1.0f);
 
 	return true;
 }
@@ -156,7 +156,8 @@ bool GraphicsClass::Render(float rotation)
 	m_D3D->GetWorldMatrix(worldMatrix);
 	m_D3D->GetProjectionMatrix(projectionMatrix);
 
-	D3DXMatrixRotationY(&worldMatrix, rotation);
+	//D3DXMatrixRotationY(&worldMatrix, rotation);
+	D3DXMatrixRotationYawPitchRoll(&worldMatrix, rotation, rotation, 0);
 
 	m_Model->Render(m_D3D->GetDeviceContext());
 
