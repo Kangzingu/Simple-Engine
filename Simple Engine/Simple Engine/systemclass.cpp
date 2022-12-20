@@ -129,7 +129,7 @@ LRESULT CALLBACK SystemClass::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam
 			m_Input->KeyDown((unsigned int)wparam);
 			return 0;
 		}
-
+		
 		case WM_KEYUP:
 		{
 			m_Input->KeyUp((unsigned int)wparam);
