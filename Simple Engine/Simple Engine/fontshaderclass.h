@@ -10,7 +10,7 @@ using namespace std;
 class FontShaderClass
 {
 private:
-	struct ContantBufferType
+	struct ConstantBufferType
 	{
 		D3DXMATRIX world;
 		D3DXMATRIX view;

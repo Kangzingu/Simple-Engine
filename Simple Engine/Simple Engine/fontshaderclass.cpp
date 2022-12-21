@@ -147,7 +147,7 @@ bool FontShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* v
 	pixelShaderBuffer = 0;
 
 	constantBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-	constantBufferDesc.ByteWidth = sizeof(ContantBufferType);
+	constantBufferDesc.ByteWidth = sizeof(ConstantBufferType);
 	constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	constantBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	constantBufferDesc.MiscFlags = 0;
@@ -267,4 +267,63 @@ bool FontShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	ConstantBufferType* dataPtr;
+	unsigned int bufferNumber;
+	PixelBufferType* dataPtr2;
+
+	result = deviceContext->Map(m_constantBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	dataPtr = (ConstantBufferType*)mappedResource.pData;
+
+	D3DXMatrixTranspose(&worldMatrix, &worldMatrix);
+	D3DXMatrixTranspose(&viewMatrix, &viewMatrix);
+	D3DXMatrixTranspose(&projectionMatrix, &projectionMatrix);
+
+	dataPtr->world = worldMatrix;
+	dataPtr->view = viewMatrix;
+	dataPtr->projection = projectionMatrix;
+
+	deviceContext->Unmap(m_constantBuffer, 0);
+
+	bufferNumber = 0;
+
+	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_constantBuffer);
+
+	deviceContext->PSSetShaderResources(0, 1, &texture);
+
+	result = deviceContext->Map(m_pixelBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	dataPtr2 = (PixelBufferType*)mappedResource.pData;
+
+	dataPtr2->pixelColor = pixelColor;
+
+	deviceContext->Unmap(m_pixelBuffer, 0);
+
+	bufferNumber = 0;
+
+	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &m_pixelBuffer);
+
+	return true;
+}
+
+void FontShaderClass::RenderShader(ID3D11DeviceContext* deviceContext, int indexCount)
+{
+	deviceContext->IASetInputLayout(m_layout);
+
+	deviceContext->VSSetShader(m_vertexShader, NULL, 0);
+	deviceContext->PSSetShader(m_pixelShader, NULL, 0);
+	
+	deviceContext->PSSetSamplers(0, 1, &m_sampleState);
+
+	deviceContext->DrawIndexed(indexCount, 0, 0);
+
+	return;
 }
