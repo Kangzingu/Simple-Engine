@@ -2,7 +2,9 @@
 
 InputClass::InputClass()
 {
-
+	m_directInput = 0;
+	m_keyboard = 0;
+	m_mouse = 0;
 }
 
 InputClass::InputClass(const InputClass& other)

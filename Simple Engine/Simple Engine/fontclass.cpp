@@ -170,11 +170,11 @@ void FontClass::BuildVertexArray(void* vertices, char* sentence, float drawX, fl
 			index++;
 
 			vertexPtr[index].position = D3DXVECTOR3((drawX + m_Font[letter].size), drawY, 0.0f);
-			vertexPtr[index].texture = D3DXVECTOR2(m_Font[letter].left, 0.0f);
+			vertexPtr[index].texture = D3DXVECTOR2(m_Font[letter].right, 0.0f);
 			index++;
 
 			vertexPtr[index].position = D3DXVECTOR3((drawX + m_Font[letter].size), (drawY - 16), 0.0f);
-			vertexPtr[index].texture = D3DXVECTOR2(m_Font[letter].left, 1.0f);
+			vertexPtr[index].texture = D3DXVECTOR2(m_Font[letter].right, 1.0f);
 			index++;
 
 			drawX = drawX + m_Font[letter].size + 1.0f;
