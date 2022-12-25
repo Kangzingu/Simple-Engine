@@ -17,8 +17,17 @@ InputClass::~InputClass()
 
 }
 
-void InputClass::Initialize()
+void InputClass::Initialize(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight)
 {
+	HRESULT result;
+
+	m_screenWidth = screenWidth;
+	m_screenHeight = screenHeight;
+
+	m_mouseX = 0;
+	m_mouseY = 0;
+
+
 	int i;
 
 	for (i = 0; i < 256; i++)
