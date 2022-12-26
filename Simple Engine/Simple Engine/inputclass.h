@@ -15,7 +15,7 @@ public:
 	InputClass(const InputClass&);
 	~InputClass();
 
-	void Initialize(HINSTANCE, HWND, int, int);
+	bool Initialize(HINSTANCE, HWND, int, int);
 	void Shutdown();
 	bool Frame();
 

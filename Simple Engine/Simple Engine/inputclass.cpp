@@ -17,7 +17,7 @@ InputClass::~InputClass()
 
 }
 
-void InputClass::Initialize(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight)
+bool InputClass::Initialize(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight)
 {
 	HRESULT result;
 
@@ -26,6 +26,12 @@ void InputClass::Initialize(HINSTANCE hinstance, HWND hwnd, int screenWidth, int
 
 	m_mouseX = 0;
 	m_mouseY = 0;
+
+	result = DirectInput8Create(hinstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&m_directInput, NULL);
+	if (FAILED(result))
+	{
+		return false;
+	}
 
 
 	int i;
