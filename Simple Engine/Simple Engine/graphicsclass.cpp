@@ -86,28 +86,22 @@ void GraphicsClass::Shutdown()
 	return;
 }
 
-bool GraphicsClass::Frame()
+bool GraphicsClass::Frame(int mouseX, int mouseY)
 {
 	bool result;
 
-	static float rotation = 0.0f;
-
-	rotation += (float)D3DX_PI * 0.001f;
-	if (rotation > 360.0f)
-	{
-		rotation -= 360.0f;
-	}
-
-	result = Render(rotation);
+	result = m_Text->SetMousePosition(mouseX, mouseY, m_D3D->GetDeviceContext());
 	if (!result)
 	{
 		return false;
 	}
 
+	m_Camera->SetPosition(0.0f, 0.0f, -10.0f);
+
 	return true;
 }
 
-bool GraphicsClass::Render(float rotation)
+bool GraphicsClass::Render()
 {
 	D3DXMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoMatrix;
 	bool result;
