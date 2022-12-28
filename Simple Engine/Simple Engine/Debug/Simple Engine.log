@@ -1,2 +1,4 @@
-﻿  inputclass.cpp
-  Simple Engine.vcxproj -> D:\GitHubRepository\Simple-Engine\Simple Engine\Debug\Simple Engine.exe
+﻿  soundclass.cpp
+D:\GitHubRepository\Simple-Engine\Simple Engine\Simple Engine\soundclass.cpp(122,6): warning C4101: 'error' :참조되지 않은 지역 변수입니다.
+D:\GitHubRepository\Simple-Engine\Simple Engine\Simple Engine\soundclass.cpp(123,8): warning C4101: 'filePtr' :참조되지 않은 지역 변수입니다.
+D:\GitHubRepository\Simple-Engine\Simple Engine\Simple Engine\soundclass.cpp(125): error C4716: 'SoundClass::LoadWaveFile': 값을 반환해야 합니다.
