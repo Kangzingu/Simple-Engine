@@ -230,4 +230,74 @@ bool SoundClass::LoadWaveFile(char* filename, IDirectSoundBuffer8** secondaryBuf
 	{
 		return false;
 	}
+
+	error = fclose(filePtr);
+	if (error != 0)
+	{
+		return false;
+	}
+
+	result = (*secondaryBuffer)->Lock(0, waveFileHeader.dataSize, (void**)&bufferPtr, (DWORD*)&bufferSize, NULL, 0, 0);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	memcpy(bufferPtr, waveData, waveFileHeader.dataSize);
+
+	result = (*secondaryBuffer)->Unlock((void*)bufferPtr, bufferSize, NULL, 0);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	delete[] waveData;
+	waveData = 0;
+
+	return true;
+}
+
+void SoundClass::ShutdownWaveFile(IDirectSoundBuffer8** secondaryBuffer)
+{
+	if (*secondaryBuffer)
+	{
+		(*secondaryBuffer)->Release();
+		*secondaryBuffer = 0;
+	}
+
+	return;
+}
+
+bool SoundClass::PlayWaveFile()
+{
+	HRESULT result;
+
+	result = m_secondaryBuffer1->SetCurrentPosition(0);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	result = m_secondaryBuffer1->SetVolume(DSBVOLUME_MAX);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	result = m_secondaryBuffer1->Play(0, 0, 0);
+	//Sleep(1000);
+	//result = m_secondaryBuffer1->SetCurrentPosition(0);
+	//result = m_secondaryBuffer1->Play(0, 0, 0);
+	//Sleep(1000);
+	//result = m_secondaryBuffer1->SetCurrentPosition(0);
+	//result = m_secondaryBuffer1->Play(0, 0, 0);
+	//Sleep(1000);
+	//result = m_secondaryBuffer1->SetCurrentPosition(0);
+	//result = m_secondaryBuffer1->Play(0, 0, 0);
+	if (FAILED(result))
+	{
+		return false;
+	}
+	
+	return true;
 }

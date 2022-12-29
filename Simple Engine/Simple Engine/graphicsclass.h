@@ -1,14 +1,14 @@
 #ifndef _GRAPHICSCLASS_H_
 #define _GRAPHICSCLASS_H_
 
-#include "d3dclass.h"
-#include "cameraclass.h"
-#include "textclass.h"
-
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
 const float SCREEN_DEPTH = 1000.0f;
 const float SCREEN_NEAR = 0.1;
+
+#include "d3dclass.h"
+#include "cameraclass.h"
+#include "textclass.h"
 
 class GraphicsClass
 {
@@ -19,7 +19,7 @@ public:
 
 	bool Initialize(int, int, HWND);
 	void Shutdown();
-	bool Frame(int, int);
+	bool Frame(int, int, float);
 	bool Render();
 
 private:
