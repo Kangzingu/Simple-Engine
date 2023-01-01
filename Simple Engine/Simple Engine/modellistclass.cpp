@@ -71,5 +71,4 @@ void ModelListClass::GetData(int index, float& positionX, float& positionY, floa
 	color = m_ModelInfoList[index].color;
 
 	return;
-
 }
