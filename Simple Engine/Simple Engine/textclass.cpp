@@ -6,7 +6,6 @@ TextClass::TextClass()
 	m_FontShader = 0;
 
 	m_sentence1 = 0;
-	m_sentence2 = 0;
 }
 
 TextClass::TextClass(const TextClass& other)
@@ -57,27 +56,14 @@ bool TextClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceCont
 		return false;
 	}
 
-	result = InitializeSentence(&m_sentence1, 16, device);
+	result = InitializeSentence(&m_sentence1, 32, device);
 	if (!result)
 	{
 		return false;
 	}
 
-	char sentence1[128] = "Hello Its me";
-	result = UpdateSentence(m_sentence1, sentence1, 100, 100, 1.0f, 1.0f, 1.0f, deviceContext);
-	if (!result)
-	{
-		return false;
-	}
-
-	result = InitializeSentence(&m_sentence2, 16, device);
-	if (!result)
-	{
-		return false;
-	}
-
-	char sentence2[128] = "Goodbye";
-	result = UpdateSentence(m_sentence2, sentence2, 100, 200, 1.0f, 1.0f, 0.0f, deviceContext);
+	char sentence1[128] = "Render Count: ";
+	result = UpdateSentence(m_sentence1, sentence1, 20, 20, 1.0f, 1.0f, 1.0f, deviceContext);
 	if (!result)
 	{
 		return false;
@@ -89,8 +75,6 @@ bool TextClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceCont
 void TextClass::Shutdown()
 {
 	ReleaseSentence(&m_sentence1);
-
-	ReleaseSentence(&m_sentence2);
 
 	if (m_FontShader)
 	{
@@ -114,80 +98,6 @@ bool TextClass::Render(ID3D11DeviceContext* deviceContext, D3DXMATRIX worldMatri
 	bool result;
 
 	result = RenderSentence(deviceContext, m_sentence1, worldMatrix, orthoMatrix);
-	if (!result)
-	{
-		return false;
-	}
-
-	result = RenderSentence(deviceContext, m_sentence2, worldMatrix, orthoMatrix);
-	if (!result)
-	{
-		return false;
-	}
-
-	return true;
-}
-
-bool TextClass::SetFps(int fps, ID3D11DeviceContext* deviceContext)
-{
-	char tempString[16];
-	char fpsString[16];
-	float red, green, blue;
-	bool result;
-
-	if (fps > 9999)
-	{
-		fps = 9999;
-	}
-
-	_itoa_s(fps, tempString, 10);
-
-	strcpy_s(fpsString, "FPS: ");
-	strcat_s(fpsString, tempString);
-
-	if (fps >= 60)
-	{
-		red = 0.0f;
-		green = 1.0f;
-		blue = 0.0f;
-	}
-
-	if (fps < 60)
-	{
-		red = 1.0f;
-		green = 1.0f;
-		blue = 1.0f;
-	}
-
-	if (fps < 30)
-	{
-		red = 1.0f;
-		green = 0.0f;
-		blue = 0.0f;
-	}
-
-	result = UpdateSentence(m_sentence1, fpsString, 20, 20, red, green, blue, deviceContext);
-	if (!result)
-	{
-		return false;
-	}
-
-	return true;
-}
-
-bool TextClass::SetCpu(int cpu, ID3D11DeviceContext* deviceContext)
-{
-	char tempString[16];
-	char cpuString[16];
-	bool result;
-
-	_itoa_s(cpu, tempString, 10);
-
-	strcpy_s(cpuString, "Cpu: ");
-	strcat_s(cpuString, tempString);
-	strcat_s(cpuString, "%");
-
-	result = UpdateSentence(m_sentence2, cpuString, 20, 40, 0.0f, 1.0f, 0.0f, deviceContext);
 	if (!result)
 	{
 		return false;
@@ -374,6 +284,26 @@ bool TextClass::RenderSentence(ID3D11DeviceContext* deviceContext, SentenceType*
 	pixelColor = D3DXVECTOR4(sentence->red, sentence->green, sentence->blue, 1.0f);
 
 	result = m_FontShader->Render(deviceContext, sentence->indexCount, worldMatrix, m_baseViewMatrix, orthoMatrix, m_Font->GetTexture(), pixelColor);
+	if (!result)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+bool TextClass::SetRenderCount(int count, ID3D11DeviceContext* deviceContext)
+{
+	char tempString[32];
+	char countString[32];
+	bool result;
+
+	_itoa_s(count, tempString, 10);
+
+	strcpy_s(countString, "Render Count: ");
+	strcat_s(countString, tempString);
+
+	result = UpdateSentence(m_sentence1, countString, 20, 20, 1.0f, 1.0f, 1.0f, deviceContext);
 	if (!result)
 	{
 		return false;
