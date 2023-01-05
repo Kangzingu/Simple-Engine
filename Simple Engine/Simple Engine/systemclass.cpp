@@ -170,7 +170,7 @@ bool SystemClass::Frame()
 
 	m_Position->GetRotation(rotationY);
 
-	result = m_Graphics->Frame(rotationY);
+	result = m_Graphics->Frame();
 	if (!result)
 	{
 		return false;

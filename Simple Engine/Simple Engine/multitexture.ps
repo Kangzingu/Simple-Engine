@@ -16,7 +16,7 @@ float4 MultiTexturePixelShader(PixelInputType input) : SV_TARGET
 	color1 = shaderTextures[0].Sample(SampleType, input.tex);
 	color2 = shaderTextures[1].Sample(SampleType, input.tex);
 
-	blendColor = color1 * color2 * 2.0f;
+	blendColor = (color1 * color2) * 2;
 
 	blendColor = saturate(blendColor);
 
