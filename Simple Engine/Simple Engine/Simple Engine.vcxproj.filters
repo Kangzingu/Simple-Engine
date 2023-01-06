@@ -88,6 +88,9 @@
     <ClCompile Include="texturearrayclass.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="lightmapshaderclass.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="timerclass.h">
