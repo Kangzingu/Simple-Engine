@@ -18,7 +18,7 @@ ModelClass::~ModelClass()
 
 }
 
-bool ModelClass::Initialize(ID3D11Device* device, char* modelFilename, WCHAR* textureFilename1, WCHAR* textureFilename2)
+bool ModelClass::Initialize(ID3D11Device* device, char* modelFilename, WCHAR* textureFilename, WCHAR* lightMapTextureFilename)
 {
 	bool result;
 
@@ -34,7 +34,7 @@ bool ModelClass::Initialize(ID3D11Device* device, char* modelFilename, WCHAR* te
 		return false;
 	}
 
-	result = LoadTextures(device, textureFilename1, textureFilename2);
+	result = LoadTextures(device, textureFilename, lightMapTextureFilename);
 	if (!result)
 	{
 		return false;

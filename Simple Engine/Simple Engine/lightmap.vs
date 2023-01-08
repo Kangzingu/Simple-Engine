@@ -11,7 +11,7 @@ struct VertexInputType
 	float2 tex : TEXCOORD0;
 };
 
-struct PixelOutputType
+struct PixelInputType
 {
 	float4 position : SV_POSITION;
 	float2 tex : TEXCOORD0;

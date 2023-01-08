@@ -17,7 +17,7 @@ float4 LightMapPixelShader(PixelInputType input) : SV_TARGET
 
 	lightColor = shaderTextures[1].Sample(SampleType, input.tex);
 
-	finalColor = color * lightColor;
+	finalColor = color * lightColor * 2;
 
 	return finalColor;
 }
