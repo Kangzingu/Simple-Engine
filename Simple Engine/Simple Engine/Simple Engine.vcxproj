@@ -202,6 +202,7 @@
     <ClInclude Include="timerclass.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="alphamap.vs" />
     <None Include="color.ps" />
     <None Include="color.vs" />
     <None Include="font.ps" />
