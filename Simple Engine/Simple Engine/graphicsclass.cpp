@@ -5,7 +5,7 @@ GraphicsClass::GraphicsClass()
 	m_D3D = 0;
 	m_Camera = 0;
 	m_Model = 0;
-	m_LightMapShader = 0;
+	m_AlphaMapShader = 0;
 }
 
 GraphicsClass::GraphicsClass(const GraphicsClass& other)
@@ -53,25 +53,26 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	char modelFilename[128] = "../Resources/Models/Square.txt";
-	wchar_t textureFilename[128] = L"../Resources/Textures/Stone.dds";
-	wchar_t lightMapTextureFilename[128] = L"../Resources/Textures/Light.dds";
-	result = m_Model->Initialize(m_D3D->GetDevice(), modelFilename, textureFilename, lightMapTextureFilename);
+	wchar_t textureFilename1[128] = L"../Resources/Textures/Stone.dds";
+	wchar_t textureFilename2[128] = L"../Resources/Textures/Dirt.dds";
+	wchar_t textureFilename3[128] = L"../Resources/Textures/Alpha.dds";
+	result = m_Model->Initialize(m_D3D->GetDevice(), modelFilename, textureFilename1, textureFilename2, textureFilename3);
 	if (!result)
 	{
 		MessageBox(hwnd, L"Could not initialize the model object.", L"Error", MB_OK);
 		return false;
 	}
 
-	m_LightMapShader = new LightMapShaderClass;
-	if (!m_LightMapShader)
+	m_AlphaMapShader = new AlphaMapShaderClass;
+	if (!m_AlphaMapShader)
 	{
 		return false;
 	}
 
-	result = m_LightMapShader->Initialize(m_D3D->GetDevice(), hwnd);
+	result = m_AlphaMapShader->Initialize(m_D3D->GetDevice(), hwnd);
 	if (!result)
 	{
-		MessageBox(hwnd, L"Could not initialize the light map shader object.", L"Error", MB_OK);
+		MessageBox(hwnd, L"Could not initialize the alpha map shader object.", L"Error", MB_OK);
 		return false;
 	}
 
@@ -80,11 +81,11 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 
 void GraphicsClass::Shutdown()
 {
-	if (m_LightMapShader)
+	if (m_AlphaMapShader)
 	{
-		m_LightMapShader->Shutdown();
-		delete m_LightMapShader;
-		m_LightMapShader = 0;
+		m_AlphaMapShader->Shutdown();
+		delete m_AlphaMapShader;
+		m_AlphaMapShader = 0;
 	}
 
 	if (m_Model)
@@ -132,7 +133,7 @@ bool GraphicsClass::Render()
 	
 	m_Model->Render(m_D3D->GetDeviceContext());
 
-	m_LightMapShader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, m_Model->GetTextureArray());
+	m_AlphaMapShader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, m_Model->GetTextureArray());
 
 	m_D3D->EndScene();
 

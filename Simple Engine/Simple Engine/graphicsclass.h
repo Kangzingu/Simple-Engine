@@ -9,7 +9,7 @@ const float SCREEN_NEAR = 0.1;
 #include "d3dclass.h"
 #include "cameraclass.h"
 #include "modelclass.h"
-#include "lightmapshaderclass.h"
+#include "alphamapshaderclass.h"
 
 class GraphicsClass
 {
@@ -27,7 +27,7 @@ private:
 	D3DClass* m_D3D;
 	CameraClass* m_Camera;
 	ModelClass* m_Model;
-	LightMapShaderClass* m_LightMapShader;
+	AlphaMapShaderClass* m_AlphaMapShader;
 };
 
 #endif
