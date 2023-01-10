@@ -94,6 +94,9 @@
     <ClCompile Include="alphamapshaderclass.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="bumpmapshaderclass.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="timerclass.h">
@@ -174,6 +177,9 @@
     <ClInclude Include="alphamapshaderclass.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="bumpmapshaderclass.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="light.ps">
@@ -216,6 +222,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="alphamap.ps">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="bumpmap.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="bumpmap.ps">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
